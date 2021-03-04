@@ -70,7 +70,7 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 const ListDropdownMenu = (props: Props) => {
-    const {dropdown, handleClickOnDropdown} = props
+    const {handleClickOnDropdown} = props
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 

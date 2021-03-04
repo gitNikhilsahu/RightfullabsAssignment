@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import Container from '@material-ui/core/Container';
 
-import { DropDownList, PostData } from 'src/containers';
+import { DropDownList, PostData, Crud } from 'src/containers';
 import { Breadcrumbs } from 'src/components';
 
 const App = () => {
@@ -25,6 +25,9 @@ const App = () => {
             </Route>
             <Route exact path="/post-data">
               <PostData />
+            </Route>
+            <Route exact path="/crud">
+              <Crud />
             </Route>
           </Switch>
 

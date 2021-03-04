@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const baseURL = "https://intern.rightfullabs.com"
 
-const axiosInstance = axios.create({
+const rightfullabsAxiosInstance = axios.create({
 	baseURL: baseURL,
 	// timeout: 5000,
 	// headers: {
@@ -11,4 +11,4 @@ const axiosInstance = axios.create({
 	// },
 });
 
-export default axiosInstance;
+export default rightfullabsAxiosInstance;

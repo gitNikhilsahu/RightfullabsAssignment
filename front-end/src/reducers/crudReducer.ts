@@ -1,10 +1,11 @@
 const initState = {
-    dropdown: [],
+    dataLists: [],
+    dataList: {},
     message: '',
     loading: false,
 };
 
-const dropdownReducer = (state = initState, action: any) => {
+const crudReducer = (state = initState, action: any) => {
     switch (action.type) {
         case "LOADING_TRUE": {
             state = {
@@ -13,28 +14,45 @@ const dropdownReducer = (state = initState, action: any) => {
             };
             break;
         }
-        case "GET_DROPDOWNS_SUCCESS": {
+        case "GET_DATA_LIST_SUCCESS": {
             state = {
                 ...state,
-                dropdown: action.payload,
+                dataLists: action.payload,
                 message: 'success',
                 loading: false
             };
             break;
         }
-        case "POST_DATA_SUCCESS": {
+        case "GET_DATA_DETAIL_SUCCESS": {
             state = {
                 ...state,
-                dropdown: action.payload,
+                dataList: action.payload,
                 message: 'success',
                 loading: false
             };
             break;
         }
-        case "POST_DATA_ERROR": {
+        case "CREATE_SUCCESS": {
             state = {
                 ...state,
-                message: action.payload,
+                message: 'success',
+                loading: false
+            };
+            break;
+        }
+        case "UPDATE_SUCCESS": {
+            state = {
+                ...state,
+                message: 'update',
+                loading: false
+            };
+            break;
+        }
+        case "DELETE_SUCCESS": {
+            state = {
+                ...state,
+                dataLists: state.dataLists.filter((item:any) => item.slug !== action.payload.slug),
+                message: 'delete',
                 loading: false
             };
             break;
@@ -54,4 +72,4 @@ const dropdownReducer = (state = initState, action: any) => {
     }
     return state;
 };
-export default dropdownReducer;
+export default crudReducer;

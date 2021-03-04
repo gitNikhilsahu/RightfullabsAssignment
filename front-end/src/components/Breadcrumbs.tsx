@@ -32,6 +32,9 @@ export default function CustomizedBreadcrumbs() {
         icon={<HomeIcon fontSize="small" />}
       />
       <StyledBreadcrumb component={Link} to="/post-data" label="PostData" />
+
+      <StyledBreadcrumb component={Link} to="/crud" label="CRUD" />
+
     </Breadcrumbs>
   );
 }

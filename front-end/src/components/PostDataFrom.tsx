@@ -19,13 +19,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const PostDataFrom = ({postData}:any) => {
+const PostDataFrom = ({postData,dropdown}:any) => {
     const classes = useStyles();
     const [label, setLabel] = useState('')
-    const [uploadfile, setUploadFile] = useState('')
+    const [uploadfile, setUploadFile] = useState()
 
-    const handleLabelOnChange=(evt:any)=> {
-        setLabel(evt.target.value)
+    const handleSubmit =()=>{
+        postData({"label":label, "uploadFile":uploadfile})
     }
 
     return (
@@ -34,8 +34,8 @@ const PostDataFrom = ({postData}:any) => {
                 Post Data Form
             </Typography>
             <form className={classes.root} noValidate autoComplete="off">
-                <TextField name="label" label="Enter Label Name .." variant="filled" onChange={handleLabelOnChange}/>
-                <TextField name="uploadfile" label="" variant="filled" />
+                <TextField name="label" label="Enter Label Name .." variant="filled" onChange={(e:any) => setLabel(e.target.value)}/>
+                <TextField name="uploadfile" variant="filled" type="file" onChange={(e:any) => setUploadFile(e.target.files[0])}/>
 
                 <Button
                     variant="contained"
@@ -43,6 +43,8 @@ const PostDataFrom = ({postData}:any) => {
                     size="large"
                     className={classes.button}
                     startIcon={<CloudUploadIcon />}
+                    onClick={handleSubmit}
+                    disabled={dropdown.loading}
                 >
                     Upload
                 </Button>

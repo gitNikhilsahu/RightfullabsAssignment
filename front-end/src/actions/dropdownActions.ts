@@ -1,4 +1,4 @@
-import axiosInstance from 'src/services/rightfullabsApi'
+import rightfullabsAxiosInstance from 'src/services/rightfullabsApi'
 
 export const getDropdownListAction = () => {
     return async (dispatch:any) => {
@@ -6,7 +6,7 @@ export const getDropdownListAction = () => {
             dispatch({
                 type: 'LOADING_TRUE'
             })
-            const res = await axiosInstance.get('/assignment/dropDownList');
+            const res = await rightfullabsAxiosInstance.get('/assignment/dropDownList');
             console.log(res)
             dispatch({
                 type: 'GET_DROPDOWNS_SUCCESS',
@@ -14,10 +14,10 @@ export const getDropdownListAction = () => {
             })
         } catch (err) {
             dispatch({
-                type: 'GET_DROPDOWNS_ERROR',
+                type: 'ERROR',
             })
-            console.log(err)
             alert("please see error in console logs ...")
+            console.log(err)
         }
     }
 }
@@ -25,21 +25,28 @@ export const getDropdownListAction = () => {
 export const postDataAction = (dataObj:any) => {
     return async (dispatch:any) => {
         try {
-            // dispatch({
-            //     type: 'LOADING_TRUE'
-            // })
-            // const res = await axiosInstance.get('/assignment/dropDownList');
-            // console.log(res)
-            // dispatch({
-            //     type: 'GET_DROPDOWNS_SUCCESS',
-            //     payload: res.data.dropdown
-            // })
+            dispatch({
+                type: 'LOADING_TRUE'
+            })
+            const res = await rightfullabsAxiosInstance.post('/assignment/postData',dataObj);
+            console.log(res)
+            const data = res.data
+            if(data.code === 401){
+                dispatch({
+                    type: 'POST_DATA_ERROR',
+                    payload: res.data.message
+                })
+            }
+            dispatch({
+                type: 'POST_DATA_SUCCESS',
+                payload: res.data
+            })
         } catch (err) {
-            // dispatch({
-            //     type: 'GET_DROPDOWNS_ERROR',
-            // })
-            // console.log(err)
-            // alert("please see error in console logs ...")
+            dispatch({
+                type: 'ERROR',
+            })
+            alert("please see error in console logs ...")
+            console.log(err)
         }
     }
 }
