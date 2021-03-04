@@ -93,3 +93,21 @@ def delete_employee(request, slug):
     else:
         return Response(data='ERROR', status=status.HTTP_400_BAD_REQUEST)
 
+
+
+@api_view(['POST'])
+@permission_classes((AllowAny,))
+def post_form(request):
+    data = {}
+    serializer = PostFormSerializer(data=request.data)
+    if serializer.is_valid():
+        form = serializer.save()
+        
+        data['pk'] = form.pk
+        data['label'] = form.label
+        image_url = str(form.uploadFile.url)
+        data['uploadFile'] = image_url
+        data['message'] = 'SUCCESS'
+        return Response(data=data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

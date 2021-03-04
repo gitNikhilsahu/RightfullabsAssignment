@@ -10,7 +10,6 @@ import {ListDropdownMenu} from 'src/components'
 
 interface ComponentProps {
     dropdown?: any
-    // dispatch?: Dispatch<any>
     getDropdownList?: any
 }
 
@@ -70,7 +69,6 @@ const mapStateToProps = (state: any) => {
   
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {
     return {
-    //   dispatch,
         getDropdownList: () => { dispatch(getDropdownListAction()) },
     }
 }

@@ -22,10 +22,18 @@ const useStyles = makeStyles((theme: Theme) =>
 const PostDataFrom = ({postData,dropdown}:any) => {
     const classes = useStyles();
     const [label, setLabel] = useState('')
-    const [uploadfile, setUploadFile] = useState()
+    const [uploadFile, setUploadFile] = useState(null as any)
 
     const handleSubmit =()=>{
-        postData({"label":label, "uploadFile":uploadfile})
+        if(label.length > 0 ){
+            // postData({"label":label, "uploadFile":uploadFile})
+            let form_data = new FormData();
+            form_data.append('label', label);
+            form_data.append('uploadFile', uploadFile);
+            postData(form_data)
+        } else (
+            alert("Please Enter data")
+        )
     }
 
     return (
@@ -34,8 +42,12 @@ const PostDataFrom = ({postData,dropdown}:any) => {
                 Post Data Form
             </Typography>
             <form className={classes.root} noValidate autoComplete="off">
-                <TextField name="label" label="Enter Label Name .." variant="filled" onChange={(e:any) => setLabel(e.target.value)}/>
-                <TextField name="uploadfile" variant="filled" type="file" onChange={(e:any) => setUploadFile(e.target.files[0])}/>
+                <TextField required name="label" label="Enter Label Name .." variant="filled" onChange={(e:any) => setLabel(e.target.value)}/>
+                {/* <TextField name="uploadFile" variant="filled" type="file" onChange={(e:any) => setUploadFile(e.target.files[0])}/> */}
+
+                <input type="file"
+                   name="uploadFile"
+                   accept="image/png, image/jpeg"  onChange={(e:any) => setUploadFile(e.target.files[0])} required/>
 
                 <Button
                     variant="contained"
@@ -44,7 +56,7 @@ const PostDataFrom = ({postData,dropdown}:any) => {
                     className={classes.button}
                     startIcon={<CloudUploadIcon />}
                     onClick={handleSubmit}
-                    disabled={dropdown.loading}
+                    disabled={dropdown.loading }
                 >
                     Upload
                 </Button>

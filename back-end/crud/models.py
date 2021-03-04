@@ -63,3 +63,11 @@ pre_save.connect(pre_save_employee_slug_receiever, sender=Employee)
 @receiver(post_delete, sender=Employee)
 def submission_delete(sender, instance, **kwargs):
 	instance.profile_image.delete(False)
+
+
+class PostForm(models.Model):
+    label = models.CharField(max_length=200)
+    uploadFile = models.FileField()
+
+    def __str__(self):
+        return self.label

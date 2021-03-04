@@ -1,4 +1,5 @@
 import rightfullabsAxiosInstance from 'src/services/rightfullabsApi'
+import serverCallAxiosInstance from 'src/services/serverCall'
 
 export const getDropdownListAction = () => {
     return async (dispatch:any) => {
@@ -24,28 +25,32 @@ export const getDropdownListAction = () => {
 
 export const postDataAction = (dataObj:any) => {
     return async (dispatch:any) => {
+        console.log(dataObj)
         try {
             dispatch({
                 type: 'LOADING_TRUE'
             })
-            const res = await rightfullabsAxiosInstance.post('/assignment/postData',dataObj);
+            const res = await serverCallAxiosInstance.post('/crud/postform', dataObj);
+            // const res = await rightfullabsAxiosInstance.post('/assignment/postData',dataObj);
             console.log(res)
             const data = res.data
-            if(data.code === 401){
+            // if(data.code === 401){
+            //     dispatch({
+            //         type: 'POST_DATA_ERROR',
+            //         payload: res.data.message
+            //     })
+            // }
+            if(data.message === 'SUCCESS'){
                 dispatch({
-                    type: 'POST_DATA_ERROR',
-                    payload: res.data.message
+                    type: 'POST_DATA_SUCCESS',
+                    payload: data
                 })
             }
-            dispatch({
-                type: 'POST_DATA_SUCCESS',
-                payload: res.data
-            })
-        } catch (err) {
+            } catch (err) {
             dispatch({
                 type: 'ERROR',
             })
-            alert("please see error in console logs ...")
+            // alert("please see error in console logs ...")
             console.log(err)
         }
     }

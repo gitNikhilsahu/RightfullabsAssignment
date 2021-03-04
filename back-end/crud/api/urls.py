@@ -10,4 +10,7 @@ urlpatterns = [
 	path('create', create_employee, name="create-employee"),
 	path('<slug>/update', update_employee, name="employee-update"),
 	path('<slug>/delete', delete_employee, name="employee-delete"),
+
+	path('postform', post_form, name="post-form")
+
 ]
