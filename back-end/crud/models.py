@@ -5,7 +5,7 @@ from django.utils.text import slugify
 from django.db.models.signals import post_delete, pre_save
 from django.dispatch import receiver
 from django.core.validators import MaxValueValidator
-from django.core.validators import RegexValidator
+# from django.core.validators import RegexValidator
 
 
 EMPLOYEE_TYPES = (
@@ -27,12 +27,8 @@ class Employee(models.Model):
     full_name = models.CharField(max_length=200)
     slug = models.SlugField(blank=True,unique=True,editable=False,default='',max_length=350)
     profile_image = models.ImageField(upload_to=upload_location,blank=True,null=True)
-    email = models.EmailField(verbose_name="Email",max_length=64,unique=True,blank=True,null=True)
-    phone_regex = RegexValidator(
-        regex=r'^\+?1?\d{9,15}$',
-        message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
-    )
-    phone_number = models.CharField(verbose_name="Phone Number",validators=[phone_regex],max_length=15,unique=True,blank=True,null=True)
+    email = models.EmailField(verbose_name="Email",max_length=64,blank=True,null=True)
+    phone_number = models.CharField(verbose_name="Phone Number",max_length=15,blank=True,null=True)
 
     salary = models.PositiveIntegerField(blank=True,null=True)
     role = models.CharField(max_length=25, choices=EMPLOYEE_TYPES,blank=True,null=True)
@@ -52,7 +48,7 @@ class Employee(models.Model):
 #auto generate the unique slug
 def pre_save_employee_slug_receiever(sender, instance, *args, **kwargs):
     if not instance.slug:
-        slug = slugify(instance.full_name)
+        slug = slugify(instance.full_name, instance.pk)
         count = Employee.objects.filter(full_name=instance.full_name).count()
         if count:
             slug = '{}-{}'.format(slug, count)

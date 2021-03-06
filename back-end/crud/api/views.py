@@ -34,8 +34,8 @@ def create_employee(request):
         data['pk'] = employee.pk
         data['full_name'] = employee.full_name
         data['slug'] = employee.slug
-        image_url = str(employee.profile_image.url)
-        data['profile_image'] = image_url
+        # image_url = str(employee.profile_image.url)
+        # data['profile_image'] = image_url
         data['email'] = employee.email
         data['phone_number'] = employee.phone_number
         data['salary'] = employee.salary
@@ -63,8 +63,8 @@ def update_employee(request, slug):
         data['pk'] = employee.pk
         data['full_name'] = employee.full_name
         data['slug'] = employee.slug
-        image_url = str(employee.profile_image.url)
-        data['profile_image'] = image_url
+        # image_url = str(employee.profile_image.url)
+        # data['profile_image'] = image_url
         data['email'] = employee.email
         data['phone_number'] = employee.phone_number
         data['salary'] = employee.salary

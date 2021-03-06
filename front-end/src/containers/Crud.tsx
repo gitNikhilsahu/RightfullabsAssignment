@@ -21,11 +21,13 @@ interface ComponentState {
     toggle: boolean
     Slug:any
     toggleCreateForm:boolean
+    
     full_name: string
     email: string
     phone_number: any
     salary: any
     detail: any
+    profile_image: any
 }
 
 interface MapStateToPropsTypes {
@@ -46,7 +48,8 @@ class Crud extends Component<ComponentProps, ComponentState> {
             email: "",
             phone_number: "",
             salary: "",
-            detail: ""
+            detail: "",
+            profile_image: null
         };
     }
 
@@ -64,19 +67,34 @@ class Crud extends Component<ComponentProps, ComponentState> {
     }
 
     handleSubmitCreateForm=()=>{
-        this.props.createDATA({"full_name":this.state.full_name,"email":this.state.email,"phone_number":this.state.phone_number,"salary":this.state.salary,"detail":this.state.detail})
+        let form_data = new FormData();
+        form_data.append('full_name', this.state.full_name);
+        form_data.append('email', this.state.email);
+        form_data.append('phone_number', this.state.phone_number);
+        form_data.append('salary', this.state.salary);
+        form_data.append('detail', this.state.detail);
+        form_data.append('profile_image', this.state.profile_image);
+
+        this.props.createDATA(form_data)
     }
     handleSubmitUpdateForm=()=>{
-        this.props.updateDATA(this.state.Slug,{"full_name":this.state.full_name,"email":this.state.email,"phone_number":this.state.phone_number,"salary":this.state.salary,"detail":this.state.detail})
+        let form_data = new FormData();
+        form_data.append('full_name', this.state.full_name);
+        form_data.append('email', this.state.email);
+        form_data.append('phone_number', this.state.phone_number);
+        form_data.append('salary', this.state.salary);
+        form_data.append('detail', this.state.detail);
+        form_data.append('profile_image', this.state.profile_image);
+
+        this.props.updateDATA(this.state.Slug,form_data)
     }
     
     render() {
-        const {loading, message, dataLists, dataList} = this.props.crud
-        console.log('getting-dropdown-list' + message)
+        const {loading, dataLists, dataList} = this.props.crud
         return (
             <Fragment>
                 <div style={{paddingTop: '5%'}}>
-                    <CRUDForm state={this.state} handleChange={this.handleChange} handleSubmitCreateForm={this.handleSubmitCreateForm} handleSubmitUpdateForm={this.handleSubmitUpdateForm}/>
+                    <CRUDForm state={this.state} setstate={(e:any)=>this.setState({profile_image:e.target.files[0]})} handleChange={this.handleChange} handleSubmitCreateForm={this.handleSubmitCreateForm} handleSubmitUpdateForm={this.handleSubmitUpdateForm}/>
                 </div>
                 <Grid container spacing={2}>
                     <>
@@ -87,7 +105,7 @@ class Crud extends Component<ComponentProps, ComponentState> {
                                     <Grid key={i} item xs={12} lg={3}>
                                         <ListCard loading={loading} dataList={item} deleteDATA={this.props.deleteDATA} handleToggle={()=>this.setState({toggle: !this.state.toggle})} toggleCreateForm={()=>this.setState({toggleCreateForm: true})} 
                                         setSlug={(slug:string)=>this.setState({Slug: slug})} 
-                                        setMyState={(data:any)=> this.setState({full_name:data.full_name,email:data.email,phone_number:data.phone_number,salary:data.salary,detail:data.detail})}/>
+                                        setMyState={(data:any)=> this.setState({full_name:data.full_name,email:data.email,phone_number:data.phone_number,salary:data.salary,detail:data.detail,profile_image:data.profile_image})}/>
                                     </Grid>
                                 )
                             })

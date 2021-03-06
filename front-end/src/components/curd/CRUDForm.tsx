@@ -24,9 +24,10 @@ interface Props {
     handleChange?:any
     handleSubmitCreateForm?:any
     handleSubmitUpdateForm?:any
+    setstate?:any
 }
 
-const CRUDForm = ({state, handleChange, handleSubmitCreateForm, handleSubmitUpdateForm}:Props) => {
+const CRUDForm = ({state, setstate, handleChange, handleSubmitCreateForm, handleSubmitUpdateForm}:Props) => {
     const classes = useStyles();
 
     return (
@@ -34,12 +35,18 @@ const CRUDForm = ({state, handleChange, handleSubmitCreateForm, handleSubmitUpda
             <Typography variant="h4" gutterBottom>
                 {state.toggleCreateForm ? "Update":"Add"} Employee Form
             </Typography>
+            {state.toggleCreateForm ? "please add all field to update form": null} <br /><br />
             <form className={classes.root} noValidate autoComplete="off">
-            <TextField name="full_name" defaultValue={state.full_name} label="Enter Full Name .." variant="outlined" onChange={handleChange}/>
-            <TextField name="email" defaultValue={state.email} label="Email .." variant="outlined" onChange={handleChange}/>
-            <TextField name="phone_number" defaultValue={state.phone_number} label="Phone Number .." variant="outlined" onChange={handleChange}/>
-            <TextField name="salary" defaultValue={state.salary} label="Salary .." variant="outlined" onChange={handleChange}/>
-            <TextField name="detail" defaultValue={state.detail} label="Detail .." variant="outlined" onChange={handleChange}/>
+            <TextField name="full_name" value={state.full_name} label="Enter Full Name .." variant="outlined" onChange={handleChange}/>
+            <TextField name="email" value={state.email} label="Email .." variant="outlined" onChange={handleChange}/>
+            <TextField name="phone_number" value={state.phone_number} label="Phone Number .." variant="outlined" onChange={handleChange}/>
+            <TextField name="salary" value={state.salary} label="Salary .." variant="outlined" onChange={handleChange}/>
+            <TextField name="detail" value={state.detail} label="Detail .." variant="outlined" onChange={handleChange}/>
+
+            {state.profile_image && state.toggleCreateForm ? <img src={state.profile_image} alt="image" />:null}
+            <input type="file"
+                   name="profile_image"
+                   accept="image/png, image/jpeg" onChange={setstate} required/>
 
                 <Button
                     variant="contained"

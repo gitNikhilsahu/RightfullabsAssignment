@@ -32,12 +32,17 @@ export const postDataAction = (dataObj:any) => {
             })
             const res = await serverCallAxiosInstance.post('/crud/postform', dataObj);
             // const res = await rightfullabsAxiosInstance.post('/assignment/postData',dataObj);
-            console.log(res)
+            // console.log(res)
             const data = res.data
             // if(data.code === 401){
             //     dispatch({
             //         type: 'POST_DATA_ERROR',
             //         payload: res.data.message
+            //     })
+            // }else{
+            //     dispatch({
+            //         type: 'POST_DATA_SUCCESS',
+            //         payload: data
             //     })
             // }
             if(data.message === 'SUCCESS'){

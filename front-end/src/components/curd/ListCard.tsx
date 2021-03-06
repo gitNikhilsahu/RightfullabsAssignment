@@ -72,7 +72,6 @@ const ListCard =({ loading, dataList, deleteDATA, handleToggle, setSlug, toggleC
       setLoading(loading? true: false)
   }, 2000)
 
-
   return (
     <>
     <Card className={classes.card}>
@@ -134,7 +133,7 @@ const ListCard =({ loading, dataList, deleteDATA, handleToggle, setSlug, toggleC
                 <IconButton 
                   aria-label="see"
                   color="primary"
-                  onClick={()=> {setSlug(dataList.slug); setMyState(dataList.full_name,dataList.email,dataList.phone_number,dataList.salary,dataList.detail); toggleCreateForm();}}
+                  onClick={()=> {setSlug(dataList.slug); setMyState(dataList); toggleCreateForm();}}
                 >
                     <EditIcon />
                 </IconButton>

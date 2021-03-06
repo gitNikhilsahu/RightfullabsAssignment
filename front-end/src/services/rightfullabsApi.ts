@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-export const baseURL = "https://intern.rightfullabs.com"
+export const baseURL = "https://cors-anywhere.herokuapp.com/https://intern.rightfullabs.com"
 
 const rightfullabsAxiosInstance = axios.create({
 	baseURL: baseURL,

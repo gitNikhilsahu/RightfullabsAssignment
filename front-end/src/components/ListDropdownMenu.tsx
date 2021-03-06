@@ -70,7 +70,7 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 const ListDropdownMenu = (props: Props) => {
-    const {handleClickOnDropdown} = props
+    const {handleClickOnDropdown, dropdown} = props
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -101,7 +101,7 @@ const ListDropdownMenu = (props: Props) => {
                 onClose={handleClose}
             >
                 {
-                    data.dropdown.map((item,i)=>{
+                    data.dropdown.map((item:any,i:any)=>{
                         return (
                             <StyledMenuItem key={i} onClick={()=> handleClickOnDropdown(item.label)}>
                                 <ListItemIcon>

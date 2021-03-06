@@ -71,11 +71,12 @@ export const updateDATAAction = (SLUG:any,dataObj:any) => {
             dispatch({
                 type: 'LOADING_TRUE'
             })
-            const res = await serverCallAxiosInstance.put(`/crud/${SLUG}/update`);
+            const res = await serverCallAxiosInstance.put(`/crud/${SLUG}/update`, dataObj);
             dispatch({
                 type: 'UPDATE_SUCCESS',
                 payload: res.data.results
             })
+            window.location.reload();
         } catch (err) {
             dispatch({
                 type: 'ERROR',
